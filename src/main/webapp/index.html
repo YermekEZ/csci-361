@@ -192,22 +192,54 @@
               console.log($('#Fname').val());
               console.log($('#Lname').val());
               console.log($('#email').val());
-              $.ajax  ({
-                  url : 'RegServlet',
-                  data:{
-                      Fname:$('#Fname').val(),
-                      Lname: $('#Lname').val(),
-                      Username:$('#Username').val(),
-                      password:$('#password').val(),
-                      email:$('#email').val()
-                  },
-                  type: "GET",
-                  success : function() {
-                      console.log("successful In get val");
 
+              $("#reg_info").html("");
+              if($('#Fname').val()=="" || $('#Lname').val()=="" || $('#Username').val()=="" || $('#password').val()=="" || $('#email').val()=="") {
+                  $("#reg_info").html("Please fill in all rows :)");
+              }
+              else {
+
+                  $.ajax({
+                      url: 'RegServlet',
+                      data: {
+                          Fname: $('#Fname').val(),
+                          Lname: $('#Lname').val(),
+                          Username: $('#Username').val(),
+                          password: $('#password').val(),
+                          email: $('#email').val()
+                      },
+                      type: "GET",
+                      success: function () {
+                          fromback_to_front_regUser_checker();
+                          console.log("successful In get val");
+
+                      }
+                  });
+              }
+          }
+
+          function Username_dublicate_checker(validation) {
+
+              $("#reg_info").html("");
+
+            if (validation==true) {
+                $("#reg_info").html("Congratulation!");
+                window.location.replace("http://localhost:8080/");
+            }
+            else {
+                $("#reg_info").html("Invalid data")
+            }
+          }
+          //
+          function fromback_to_front_regUser_checker() {
+              $.ajax ({
+                  url:"RegServlet",
+                  dataType:'json',
+                  type:'POST',
+                  success: function (r) {
+                      Username_dublicate_checker(r);
                   }
-              });
-
+              })
           }
 
           function selectCountry(val) {
@@ -323,7 +355,6 @@
 
               $("#submit1").on('click',function () {
                   getReg();
-                  window.location.replace("http://localhost:8080/");
               });
 
           });
@@ -486,6 +517,11 @@
                     <div class="input-group mb-3">
                         <input name = "email"id="email"  type="text" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
                     </div>
+
+                    <div class="form-group">
+                        <span id = reg_info class="text-info"></span><br>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

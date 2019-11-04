@@ -1,5 +1,7 @@
 package kz.edu.nu.cs.se.hw;
 
+import com.google.gson.Gson;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class RegServlet extends HttpServlet {
+    private boolean checker;
     private static final long serialVersionUID = 1L;
     protected static Connection con=null;
     public RegServlet() {
@@ -25,18 +28,39 @@ public class RegServlet extends HttpServlet {
             Username= request.getParameter("Username");
             password= request.getParameter("password");
             email =request.getParameter("email");
-            InsertHelper register = new InsertHelper();
-            String regQuery = register.Reg(Fname, Lname,Username,password,email);
-            Statement regSt  = con.createStatement();
-            regSt.executeUpdate(regQuery);
-            System.out.println(regQuery);
-            regSt.close();
+
+            String query = "SELECT * from user where username =" + '"' + Username + '"';
+            Statement st_check = con.createStatement();
+            ResultSet r = st_check.executeQuery(query);
+
+            if (r.next()) {
+                checker = false;
+                st_check.close();
+            }
+            else {
+                checker = true;
+                st_check.close();
+
+                InsertHelper register = new InsertHelper();
+                String regQuery = register.Reg(Fname, Lname,Username,password,email);
+                Statement regSt  = con.createStatement();
+                regSt.executeUpdate(regQuery);
+                System.out.println(regQuery);
+                regSt.close();
+            }
+
+
             con.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
+
+        String json = new Gson().toJson(checker);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
+
     }
 }
