@@ -1,54 +1,67 @@
-
+-- MySQL Workbench Forward Engineering
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema Db
+-- Schema mydb
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema Db
+-- Schema mydb
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `Db` DEFAULT CHARACTER SET utf8 ;
-USE `Db` ;
+CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
+USE `mydb` ;
 
 -- -----------------------------------------------------
--- Table `Db`.`Route`
+-- Table `mydb`.`Route`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Db`.`Route` ;
+DROP TABLE IF EXISTS `mydb`.`Route` ;
 
-CREATE TABLE IF NOT EXISTS `Db`.`Route` (
-  `RouteID` VARCHAR(45) NOT NULL,
+CREATE TABLE IF NOT EXISTS `mydb`.`Route` (
+  `RouteID` INT NOT NULL auto_increment,
   `Date` DATE NOT NULL,
-  `Time` TIME NOT NULL,
-  `Departure` VARCHAR(45) NOT NULL,
-  `Arrival` VARCHAR(45) NOT NULL,
+  `Time_in` TIME NOT NULL,
   `Weather` VARCHAR(45) NULL,
-  PRIMARY KEY (`RouteID`))
+  `First_Station` INT NOT NULL,
+  `Last_Station` INT NOT NULL,
+  `Time_out` TIME NOT NULL,
+  PRIMARY KEY (`RouteID`),
+  INDEX `fk_Route__Station_1_idx` (`First_Station` ASC) VISIBLE,
+  INDEX `fk_Route__Station_2_idx` (`Last_Station` ASC) VISIBLE,
+  CONSTRAINT `fk_Route__Station_1`
+    FOREIGN KEY (`First_Station`)
+    REFERENCES `mydb`.`Station` (`StationID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Route__Station_2`
+    FOREIGN KEY (`Last_Station`)
+    REFERENCES `mydb`.`Station` (`StationID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Db`.`Train`
+-- Table `mydb`.`Train`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Db`.`Train` ;
+DROP TABLE IF EXISTS `mydb`.`Train` ;
 
-CREATE TABLE IF NOT EXISTS `Db`.`Train` (
-  `Type` VARCHAR(45) NOT NULL DEFAULT 'Default',
-  `ID` INT NOT NULL,
-  `MaxSeat` VARCHAR(45) NULL,
-  PRIMARY KEY (`ID`, `Type`))
+CREATE TABLE IF NOT EXISTS `mydb`.`Train` (
+  `ID` INT NOT NULL auto_increment,
+  `MaxSeats` INT NULL,
+  `Train_model` VARCHAR(45) NULL,
+  PRIMARY KEY (`ID`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Db`.`User`
+-- Table `mydb`.`User`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Db`.`User` ;
+DROP TABLE IF EXISTS `mydb`.`User` ;
 
-CREATE TABLE IF NOT EXISTS `Db`.`User` (
+CREATE TABLE IF NOT EXISTS `mydb`.`User` (
   `UserID` INT NOT NULL auto_increment,
   `Lname` VARCHAR(45) NOT NULL,
   `Fname` VARCHAR(45) NOT NULL,
@@ -62,163 +75,179 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Db`.`Ticket`
+-- Table `mydb`.`Ticket`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Db`.`Ticket` ;
+DROP TABLE IF EXISTS `mydb`.`Ticket` ;
 
-CREATE TABLE IF NOT EXISTS `Db`.`Ticket` (
+CREATE TABLE IF NOT EXISTS `mydb`.`Ticket` (
   `Seat_Number` INT NOT NULL,
-  `RouteID` VARCHAR(45) NOT NULL,
-  `Passenger` INT NULL,
-  `TrainID` INT NOT NULL,
-  `Status` TINYINT NULL DEFAULT 1,
-  PRIMARY KEY (`Seat_Number`, `RouteID`, `TrainID`),
-  INDEX `fk_Ticket_Route_idx` (`RouteID` ASC) VISIBLE,
-  INDEX `fk_Ticket_Train1_idx` (`TrainID` ASC) VISIBLE,
-  UNIQUE INDEX `Passenger_UNIQUE` (`Passenger` ASC) VISIBLE,
-  CONSTRAINT `fk_Ticket_Route`
-    FOREIGN KEY (`RouteID`)
-    REFERENCES `Db`.`Route` (`RouteID`)
+  `Status` TINYINT(1) NULL,
+  `Train_ID` INT NOT NULL,
+  `Vagon_type` VARCHAR(45) NOT NULL,
+  `Leg_Serial_number` INT NOT NULL,
+  `RouteID` INT NOT NULL,
+  `Pass_Name` VARCHAR(45) NOT NULL,
+  `PassID` INT NOT NULL,
+  PRIMARY KEY (`Seat_Number`, `Train_ID`, `Vagon_type`, `Leg_Serial_number`, `RouteID`, `PassID`),
+  INDEX `fk_Ticket__Vagon1_idx` (`Train_ID` ASC, `Vagon_type` ASC) VISIBLE,
+  INDEX `fk_Ticket__Leg_of_Route1_idx` (`Leg_Serial_number` ASC, `RouteID` ASC) VISIBLE,
+  INDEX `fk_Ticket__User_1_idx` (`PassID` ASC) VISIBLE,
+  CONSTRAINT `fk_Ticket__Vagon1`
+    FOREIGN KEY (`Train_ID` , `Vagon_type`)
+    REFERENCES `mydb`.`Vagon` (`Train_ID` , `Vagon_type`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Ticket_User1`
-    FOREIGN KEY (`Passenger`)
-    REFERENCES `Db`.`User` (`UserID`)
+  CONSTRAINT `fk_Ticket__Leg_of_Route1`
+    FOREIGN KEY (`Leg_Serial_number` , `RouteID`)
+    REFERENCES `mydb`.`Leg_of_Route` (`Serial_number_in_route` , `RouteID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Ticket_Train1`
-    FOREIGN KEY (`TrainID`)
-    REFERENCES `Db`.`Train` (`ID`)
+  CONSTRAINT `fk_Ticket__User_1`
+    FOREIGN KEY (`PassID`)
+    REFERENCES `mydb`.`User` (`UserID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Db`.`Trip`
+-- Table `mydb`.`Trip`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Db`.`Trip` ;
+DROP TABLE IF EXISTS `mydb`.`Trip` ;
 
-CREATE TABLE IF NOT EXISTS `Db`.`Trip` (
-  `Passenger` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `mydb`.`Trip` (
   `Status` TINYINT NULL DEFAULT 1,
   `Ticket_Seat_Number` INT NOT NULL,
-  `Ticket_RouteID` VARCHAR(45) NOT NULL,
-  `Ticket_TrainID` INT NOT NULL,
-  PRIMARY KEY (`Passenger`, `Ticket_TrainID`, `Ticket_RouteID`, `Ticket_Seat_Number`),
-  INDEX `fk_Trip_Ticket1_idx` (`Ticket_Seat_Number` ASC, `Ticket_RouteID` ASC, `Ticket_TrainID` ASC) VISIBLE,
-  CONSTRAINT `fk_Trip_User1`
-    FOREIGN KEY (`Passenger`)
-    REFERENCES `Db`.`User` (`UserID`)
+  `Ticket_Train_ID` INT NOT NULL,
+  `Ticket_Vagon_type` VARCHAR(45) NOT NULL,
+  `Leg_Serial_number` INT NOT NULL,
+  `RouteID`INT NOT NULL,
+  `PassID` INT NOT NULL,
+  PRIMARY KEY (`Ticket_Seat_Number`, `Ticket_Train_ID`, `Ticket_Vagon_type`, `Leg_Serial_number`, `RouteID`, `PassID`),
+  INDEX `fk_Trip__User_1_idx` (`PassID` ASC) VISIBLE,
+  CONSTRAINT `fk_Trip__Ticket_1`
+    FOREIGN KEY (`Ticket_Seat_Number` , `Ticket_Train_ID` , `Ticket_Vagon_type` , `Leg_Serial_number` , `RouteID`)
+    REFERENCES `mydb`.`Ticket` (`Seat_Number` , `Train_ID` , `Vagon_type` , `Leg_Serial_number` , `RouteID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Trip_Ticket1`
-    FOREIGN KEY (`Ticket_Seat_Number` , `Ticket_RouteID` , `Ticket_TrainID`)
-    REFERENCES `Db`.`Ticket` (`Seat_Number` , `RouteID` , `TrainID`)
+  CONSTRAINT `fk_Trip__User_1`
+    FOREIGN KEY (`PassID`)
+    REFERENCES `mydb`.`User` (`UserID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `Db`.`Station`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `Db`.`Station` ;
 
-CREATE TABLE IF NOT EXISTS `Db`.`Station` (
-  `StationID` INT NOT NULL,
+-- -----------------------------------------------------
+-- Table `mydb`.`Station`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`Station` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`Station` (
+  `StationID` INT NOT NULL auto_increment,
   `Location` VARCHAR(45) NOT NULL,
   `ManagerID` INT NOT NULL,
   PRIMARY KEY (`StationID`, `ManagerID`),
-  INDEX `fk_Station_User1_idx` (`ManagerID` ASC) VISIBLE,
-  CONSTRAINT `fk_Station_User1`
+  INDEX `fk_Station__User_1_idx` (`ManagerID` ASC) VISIBLE,
+  CONSTRAINT `fk_Station__User_1`
     FOREIGN KEY (`ManagerID`)
-    REFERENCES `Db`.`User` (`UserID`)
+    REFERENCES `mydb`.`User` (`UserID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Db`.`EmployeeID`
+-- Table `mydb`.`EmployeeID`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Db`.`EmployeeID` ;
+DROP TABLE IF EXISTS `mydb`.`EmployeeID` ;
 
-CREATE TABLE IF NOT EXISTS `Db`.`EmployeeID` (
-  `idStation_Employee` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `mydb`.`EmployeeID` (
+  `idStation_Employee` INT NOT NULL auto_increment,
   `FName` VARCHAR(45) NULL,
   `LName` VARCHAR(45) NULL,
   `Position` VARCHAR(45) NULL,
-  `Station_StationID` INT NOT NULL,
+  `StationID` INT NOT NULL,
   PRIMARY KEY (`idStation_Employee`),
-  INDEX `fk_Station_Employee_Station1_idx` (`Station_StationID` ASC) VISIBLE,
-  CONSTRAINT `fk_Station_Employee_Station1`
-    FOREIGN KEY (`Station_StationID`)
-    REFERENCES `Db`.`Station` (`StationID`)
+  INDEX `fk_EmployeeID__Station_1_idx` (`StationID` ASC) VISIBLE,
+  CONSTRAINT `fk_EmployeeID__Station_1`
+    FOREIGN KEY (`StationID`)
+    REFERENCES `mydb`.`Station` (`StationID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Db`.`Work_E`
+-- Table `mydb`.`Work_E`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Db`.`Work_E` ;
+DROP TABLE IF EXISTS `mydb`.`Work_E` ;
 
-CREATE TABLE IF NOT EXISTS `Db`.`Work_E` (
-  `ID` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `mydb`.`Work_E` (
   `Date` DATE NULL,
   `Start_time` TIME NULL,
   `End_time` TIME NULL,
-  `Hours` INT NULL DEFAULT(0),
-  PRIMARY KEY (`ID`),
-  CONSTRAINT `fk_Work_E_Station_Employee1`
-    FOREIGN KEY (`ID`)
-    REFERENCES `Db`.`EmployeeID` (`idStation_Employee`)
+  `Hours` INT NULL DEFAULT(timediff(`End_time`,`Start_time`)),
+  `EmployeeID` INT NOT NULL,
+  PRIMARY KEY (`EmployeeID`),
+  CONSTRAINT `fk_Work_E__EmployeeID_1`
+    FOREIGN KEY (`EmployeeID`)
+    REFERENCES `mydb`.`EmployeeID` (`idStation_Employee`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Db`.`Fare`
+-- Table `mydb`.`Fare`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Db`.`Fare` ;
+DROP TABLE IF EXISTS `mydb`.`Fare` ;
 
-CREATE TABLE IF NOT EXISTS `Db`.`Fare` (
+CREATE TABLE IF NOT EXISTS `mydb`.`Fare` (
   `FareCode` VARCHAR(45) NOT NULL,
   `Price` VARCHAR(45) NOT NULL,
-  `RouteID` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`FareCode`, `RouteID`),
-  INDEX `fk_Fare_Route1_idx` (`RouteID` ASC) VISIBLE,
-  CONSTRAINT `fk_Fare_Route1`
-    FOREIGN KEY (`RouteID`)
-    REFERENCES `Db`.`Route` (`RouteID`)
+  `Train_ID` INT NOT NULL,
+  `Vagon_type` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`FareCode`, `Train_ID`, `Vagon_type`),
+  INDEX `fk_Fare__Vagon1_idx` (`Train_ID` ASC, `Vagon_type` ASC) VISIBLE,
+  CONSTRAINT `fk_Fare__Vagon1`
+    FOREIGN KEY (`Train_ID` , `Vagon_type`)
+    REFERENCES `mydb`.`Vagon` (`Train_ID` , `Vagon_type`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-
 -- -----------------------------------------------------
--- Table `Db`.`CityOrder`
+-- Table `mydb`.`Leg_of_Route`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Db`.`CityOrder` ;
+DROP TABLE IF EXISTS `mydb`.`Leg_of_Route` ;
 
-CREATE TABLE IF NOT EXISTS `Db`.`CityOrder` (
-  `IDCityOrder` INT NOT NULL,
-  `Route_RouteID` VARCHAR(45) NOT NULL,
-  `Station_ID` INT NOT NULL,
-  PRIMARY KEY (`IDCityOrder`, `Route_RouteID`),
-  INDEX `fk_CityOrder_Route1_idx` (`Route_RouteID` ASC) VISIBLE,
-  INDEX `fk_CityOrder_Station1_idx` (`Station_ID` ASC) VISIBLE,
-  CONSTRAINT `fk_CityOrder_Route1`
-    FOREIGN KEY (`Route_RouteID`)
-    REFERENCES `Db`.`Route` (`RouteID`)
+CREATE TABLE IF NOT EXISTS `mydb`.`Leg_of_Route` (
+  `Serial_number_in_route` INT NOT NULL,
+  `Status` TINYINT(1) NULL,
+  `RouteID` INT NOT NULL,
+  `Station_in` INT NOT NULL,
+  `Station_out` INT NOT NULL,
+  `Time_in` TIME NOT NULL,
+  `Time_out` TIME NOT NULL,
+  PRIMARY KEY (`Serial_number_in_route`, `RouteID`),
+  INDEX `fk_Leg_of_Route_Route_1_idx` (`RouteID` ASC) VISIBLE,
+  INDEX `fk_Leg_of_Route_Station_1_idx` (`Station_in` ASC) VISIBLE,
+  INDEX `fk_Leg_of_Route_Station_2_idx` (`Station_out` ASC) VISIBLE,
+  CONSTRAINT `fk_Leg_of_Route_Route_1`
+    FOREIGN KEY (`RouteID`)
+    REFERENCES `mydb`.`Route` (`RouteID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_CityOrder_Station1`
-    FOREIGN KEY (`Station_ID`)
-    REFERENCES `Db`.`Station` (`StationID`)
+  CONSTRAINT `fk_Leg_of_Route_Station_1`
+    FOREIGN KEY (`Station_in`)
+    REFERENCES `mydb`.`Station` (`StationID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Leg_of_Route_Station_2`
+    FOREIGN KEY (`Station_out`)
+    REFERENCES `mydb`.`Station` (`StationID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
