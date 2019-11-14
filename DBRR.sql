@@ -74,13 +74,13 @@ DROP TABLE IF EXISTS `mydb`.`Ticket` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`Ticket` (
   `Seat_Number` INT NOT NULL,
-  `Status` TINYINT(1) NULL,
+ -- `Status` TINYINT(1) NULL DEFAULT 0,
   `Train_ID` INT NOT NULL,
   `Vagon_type` VARCHAR(45) NOT NULL,
   `Leg_Serial_number` INT NOT NULL,
   `RouteID` INT NOT NULL,
   `Pass_Name` VARCHAR(45) NULL,
-  `PassID` INT NOT NULL,
+  `PassID` INT NULL,
   `Vagon_num` INT NOT NULL,
   PRIMARY KEY (`Seat_Number`, `Train_ID`, `Vagon_type`, `Leg_Serial_number`, `RouteID`, `Vagon_num`),
   INDEX `fk_Ticket__Vagon1_idx` (`Train_ID` ASC, `Vagon_type` ASC, `Vagon_num` ASC) VISIBLE,
@@ -255,7 +255,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Vagon` (
   `Train_ID` INT NOT NULL,
   `Vagon_type` VARCHAR(45) NOT NULL,
   `Vagon_num` INT NOT NULL,
-  `Seats_total` INT NULL,
   PRIMARY KEY (`Train_ID`, `Vagon_type`, `Vagon_num`),
   CONSTRAINT `fk_Vagon_Train_1`
     FOREIGN KEY (`Train_ID`)
