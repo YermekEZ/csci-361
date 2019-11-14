@@ -21,15 +21,9 @@ DROP TABLE IF EXISTS `mydb`.`Route` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`Route` (
   `RouteID` INT NOT NULL auto_increment,
-  `Date` DATE NOT NULL,
-  `Time_in` TIME NOT NULL,
-  `Weather` VARCHAR(45) NULL,
   `First_Station` INT NOT NULL,
   `Last_Station` INT NOT NULL,
-  `Time_out` TIME NOT NULL,
   PRIMARY KEY (`RouteID`),
-  INDEX `fk_Route__Station_1_idx` (`First_Station` ASC) VISIBLE,
-  INDEX `fk_Route__Station_2_idx` (`Last_Station` ASC) VISIBLE,
   CONSTRAINT `fk_Route__Station_1`
     FOREIGN KEY (`First_Station`)
     REFERENCES `mydb`.`Station` (`StationID`)
@@ -50,7 +44,6 @@ DROP TABLE IF EXISTS `mydb`.`Train` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`Train` (
   `ID` INT NOT NULL auto_increment,
-  `MaxSeats` INT NULL,
   `Train_model` VARCHAR(45) NULL,
   PRIMARY KEY (`ID`))
 ENGINE = InnoDB;
@@ -70,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`User` (
   `Status` VARCHAR(45) NULL DEFAULT 'Passenger',
   `Password` VARCHAR(45) NULL DEFAULT '12345',
   PRIMARY KEY (`Username`),
-  UNIQUE INDEX `UserID_UNIQUE` (`UserID` ASC) VISIBLE)
+  UNIQUE INDEX `User_UNIQUE` (`UserID` ASC, `Email` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 
@@ -86,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Ticket` (
   `Vagon_type` VARCHAR(45) NOT NULL,
   `Leg_Serial_number` INT NOT NULL,
   `RouteID` INT NOT NULL,
-  `Pass_Name` VARCHAR(45) NOT NULL,
+  `Pass_Name` VARCHAR(45) NULL,
   `PassID` INT NOT NULL,
   `Vagon_num` INT NOT NULL,
   PRIMARY KEY (`Seat_Number`, `Train_ID`, `Vagon_type`, `Leg_Serial_number`, `RouteID`, `Vagon_num`),
@@ -226,28 +219,28 @@ DROP TABLE IF EXISTS `mydb`.`Leg_of_Route` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`Leg_of_Route` (
   `Serial_number_in_route` INT NOT NULL,
-  `Status` TINYINT(1) NULL,
+  -- `Status` TINYINT(1) NULL,
   `RouteID` INT NOT NULL,
-  `Station_in` INT NOT NULL,
-  `Station_out` INT NOT NULL,
-  `Time_in` TIME NOT NULL,
-  `Time_out` TIME NOT NULL,
-  PRIMARY KEY (`Serial_number_in_route`, `RouteID`),
+  `Date_dep` DATETIME NOT NULL,
+  `Date_arr` DATETIME NOT NULL,
+  `Station_dep` INT NOT NULL,
+  `Station_arr` INT NOT NULL,
+  PRIMARY KEY (`Serial_number_in_route`, `RouteID`, `Date_dep`),
   INDEX `fk_Leg_of_Route_Route_1_idx` (`RouteID` ASC) VISIBLE,
-  INDEX `fk_Leg_of_Route_Station_1_idx` (`Station_in` ASC) VISIBLE,
-  INDEX `fk_Leg_of_Route_Station_2_idx` (`Station_out` ASC) VISIBLE,
+  INDEX `fk_Leg_of_Route_Station_1_idx` (`Station_arr` ASC) VISIBLE,
+  INDEX `fk_Leg_of_Route_Station_2_idx` (`Station_dep` ASC) VISIBLE,
   CONSTRAINT `fk_Leg_of_Route_Route_1`
     FOREIGN KEY (`RouteID`)
     REFERENCES `mydb`.`Route` (`RouteID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Leg_of_Route_Station_1`
-    FOREIGN KEY (`Station_in`)
+    FOREIGN KEY (`Station_arr`)
     REFERENCES `mydb`.`Station` (`StationID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Leg_of_Route_Station_2`
-    FOREIGN KEY (`Station_out`)
+    FOREIGN KEY (`Station_dep`)
     REFERENCES `mydb`.`Station` (`StationID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
