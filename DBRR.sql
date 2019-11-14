@@ -88,13 +88,14 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Ticket` (
   `RouteID` INT NOT NULL,
   `Pass_Name` VARCHAR(45) NOT NULL,
   `PassID` INT NOT NULL,
-  PRIMARY KEY (`Seat_Number`, `Train_ID`, `Vagon_type`, `Leg_Serial_number`, `RouteID`, `PassID`),
-  INDEX `fk_Ticket__Vagon1_idx` (`Train_ID` ASC, `Vagon_type` ASC) VISIBLE,
+  `Vagon_num` INT NOT NULL,
+  PRIMARY KEY (`Seat_Number`, `Train_ID`, `Vagon_type`, `Leg_Serial_number`, `RouteID`, `Vagon_num`),
+  INDEX `fk_Ticket__Vagon1_idx` (`Train_ID` ASC, `Vagon_type` ASC, `Vagon_num` ASC) VISIBLE,
   INDEX `fk_Ticket__Leg_of_Route1_idx` (`Leg_Serial_number` ASC, `RouteID` ASC) VISIBLE,
   INDEX `fk_Ticket__User_1_idx` (`PassID` ASC) VISIBLE,
   CONSTRAINT `fk_Ticket__Vagon1`
-    FOREIGN KEY (`Train_ID` , `Vagon_type`)
-    REFERENCES `mydb`.`Vagon` (`Train_ID` , `Vagon_type`)
+    FOREIGN KEY (`Train_ID` , `Vagon_type`, `Vagon_num`)
+    REFERENCES `mydb`.`Vagon` (`Train_ID` , `Vagon_type`,`Vagon_num`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Ticket__Leg_of_Route1`
@@ -248,6 +249,24 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Leg_of_Route` (
   CONSTRAINT `fk_Leg_of_Route_Station_2`
     FOREIGN KEY (`Station_out`)
     REFERENCES `mydb`.`Station` (`StationID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Vagon`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`Vagon` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`Vagon` (
+  `Train_ID` INT NOT NULL,
+  `Vagon_type` VARCHAR(45) NOT NULL,
+  `Vagon_num` INT NOT NULL,
+  `Seats_total` INT NULL,
+  PRIMARY KEY (`Train_ID`, `Vagon_type`, `Vagon_num`),
+  CONSTRAINT `fk_Vagon_Train_1`
+    FOREIGN KEY (`Train_ID`)
+    REFERENCES `mydb`.`Train` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
