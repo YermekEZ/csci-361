@@ -1,5 +1,10 @@
 var data = [];
 
+var ar = [];
+var ar_pos = [];
+var max = 0;
+
+
 function populate(arr){
 	console.log("in populate");
 	console.log(arr);
@@ -211,37 +216,168 @@ function showHistory(r){
 
 
 
+// -------------------- FROM SOME.JS ----------------------
+function findMax(){
+    console.log("in max find");
+    console.log(ar);
+    for(var i = 0; i < ar.length; i+=1){
+        var n = getNumberPart(ar[i].id);
+        var x = parseInt(n);
+        if(x>max){
+            max = x;
+        }
+    }
+
+}
+
+function prepareData(){
+    ar.length = 0;
+    ar_pos.length = 0;
+    var table = document.getElementById('ticket');
+    var rowLength = table.rows.length;
+    for(var i=1; i<rowLength; i+=1){
+        var row = table.rows[i];
+        ar.push(row)
+    }
+
+    var temp = 0;
+    var counter = 0;
+    for (var j=1; j<10; j+=1){
+        counter = 0;
+        for(var k =0; k<ar.length; k+=1){
+            temp = getNumberPart(ar[k].id)
+            temp = temp.slice(0,1);
+            var x  = parseInt(temp);
+            if(x ===j){
+                counter+=1
+            }
+        }
+        ar_pos.push(counter);
+
+    }
+
+    findMax();
+
+    console.log(ar);
+    console.log(ar_pos);
+    console.log(max);
+}
+
+function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+}
+
+function getNumberPart(s){
+    var end = s.length
+    var ans = s.slice(1,end)
+    return ans
+}
+function getNumber(s){
+
+    return s.cells[4].innerText;
+}
+function compare(a,b){
+    var num = returnNumber();
+    if(num === 0){
+        return 0;
+    }
+    var len = num.length;
+    console.log(num);
+    var num2 = num.slice(0, len-1);
+    console.log(num2);
+    var t1 = getNumber(a);
+    var t2 = getNumber(b);
+    if(len<=t1.length&&len<=t2){
+        t1 = t1.slice(0,len);
+        t2 = t2.slice(0,len);
+
+        c1 = t1.slice(0,len-1);
+        c2 = t2.slice(0,len-1);
+    }
+    if (t1 == num && t2==num){
+        return -1;
+    }else if(t1 == num && t2!=num){
+        return -1;
+    }else if(t1 != num && t2==num){
+        console.log("here");
+        return 1;
+    }else if(t1 == num && c2==num2){
+        return -1;
+    }else if(t1 == num && c2!=num2){
+        return -1;
+    }
+    else if(t1 != num && c2==num2){
+        return 1;
+    }else if(c1 == num2 && t2==num){
+        return 1;
+    }else if(c1 == num2 && t2!=num){
+        return -1;
+    }
+    else{
+        return 1;
+    }
+}
+
+function compare2(a,b){
+    var n1 = getNumberPart(a.id);
+    var n2 = getNumberPart(b.id);
+    var num1 = parseInt(n1,10)
+    var num2 = parseInt(n2,10)
+    if(num1<num2){
+        return -1;
+    }else{
+        return 1;
+    }
+}
+
+function returnNumber(){
+
+    if($("#number").val()===""){
+        return 0;
+
+    }
+    return $("#number").val();
+}
 
 
-//    function productsAdd() {
-//      // First check if a <tbody> tag exists, add one if not
-//      if ($("#ticket tbody").length == 0) {
-//        $("#ticket").append("<tbody></tbody>");
-//      }
-//        
-//      // Append product to the table
-//      $("#ticket tbody").append(
-//        "<tr>" +
-//          "<td>Astana</td>" +
-//          "<td>nur-sultan</td>" +
-//          "<td>26</td>" +
-//        "</tr>"
-//        );
-//      $("#ticket tbody").append(
-//        "<tr>" +
-//        "<td>Semey</td>" +
-//          "<td>Semey</td>" +
-//          "<td>14</td>" +
-//          "<td> <button type=\"button\" class=\"close\" aria-label=\"Close\">cancel </button> </td>"+
-//        "</tr>"
-//        );
-//    }
+function rearrange(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57)){
+        return 0
+    }
+
+
+
+    window.ar.sort(compare);
+    var num = returnNumber();
+    var n = parseInt(num);
+    if(num===0){
+        return 0;
+    }
+    if(n>max||n<0){
+
+    }
+    num = num.slice(0,1);
+    var x = parseInt(num);
+    console.log(ar);
+    console.log("here the number of times: "+ar_pos[x-1]);
+
+    // ar = ar.slice(0, ar_pos[x-1]).sort(compare2).concat(ar.slice(ar_pos[x-1], ar.len));
+    console.log(ar);
+    for (var j = ar.length; j>=0;j-=1){
+        $(ar[j]).insertAfter("#content");
+    }
+}
+
+
+
+//--------------------- END SOME.JS ------------------------
+
 $(document).ready(function() {
 
-
-//  $("#datepicker").click (function () {
-//    $("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
-//  });
 
 
 $("#formButton").click(function() {
@@ -263,8 +399,18 @@ $("#showHistory").click(function(){
       get();
       console.log($('#arrival').val());
       console.log($('#date').val());
+      window.setTimeout(prepareData,1000);
     });
 
+
+
+//------------------------ FROM SOME.JS ------------------------------
+    $("#number").on('keyup',function(event){
+        rearrange(event);
+        console.log("rearranged");
+    });
+
+// ------------------------ END SOME.JS ------------------------------
    
   });
   

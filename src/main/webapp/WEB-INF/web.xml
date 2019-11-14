@@ -23,10 +23,10 @@
         <servlet-class>kz.edu.nu.cs.se.hw.LoginServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>TicketServlet</servlet-name>
-        <display-name>TicketServlet</display-name>
+        <servlet-name>ServletAutofill</servlet-name>
+        <display-name>ServletAutofill</display-name>
         <description></description>
-        <servlet-class>kz.edu.nu.cs.se.hw.TicketServlet</servlet-class>
+        <servlet-class>kz.edu.nu.cs.se.hw.ServletAutofill</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Reserve</servlet-name>
@@ -60,8 +60,8 @@
 
 
     <servlet-mapping>
-        <servlet-name>TicketServlet</servlet-name>
-        <url-pattern>/TicketServlet</url-pattern>
+        <servlet-name>ServletAutofill</servlet-name>
+        <url-pattern>/ServletAutofill</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Reserve</servlet-name>
