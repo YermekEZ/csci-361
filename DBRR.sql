@@ -66,44 +66,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`User` (
   UNIQUE INDEX `User_UNIQUE` (`UserID` ASC, `Email` ASC) VISIBLE)
 ENGINE = InnoDB;
 
-
--- -----------------------------------------------------
--- Table `mydb`.`Ticket`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`Ticket` ;
-
-CREATE TABLE IF NOT EXISTS `mydb`.`Ticket` (
-  `Seat_Number` INT NOT NULL,
- -- `Status` TINYINT(1) NULL DEFAULT 0,
-  `Train_ID` INT NOT NULL,
-  `Vagon_type` VARCHAR(45) NOT NULL,
-  `Leg_Serial_number` INT NOT NULL,
-  `RouteID` INT NOT NULL,
-  `Pass_Name` VARCHAR(45) NULL,
-  `PassID` INT NULL,
-  `Vagon_num` INT NOT NULL,
-  PRIMARY KEY (`Seat_Number`, `Train_ID`, `Vagon_type`, `Leg_Serial_number`, `RouteID`, `Vagon_num`),
-  INDEX `fk_Ticket__Vagon1_idx` (`Train_ID` ASC, `Vagon_type` ASC, `Vagon_num` ASC) VISIBLE,
-  INDEX `fk_Ticket__Leg_of_Route1_idx` (`Leg_Serial_number` ASC, `RouteID` ASC) VISIBLE,
-  INDEX `fk_Ticket__User_1_idx` (`PassID` ASC) VISIBLE,
-  CONSTRAINT `fk_Ticket__Vagon1`
-    FOREIGN KEY (`Train_ID` , `Vagon_type`, `Vagon_num`)
-    REFERENCES `mydb`.`Vagon` (`Train_ID` , `Vagon_type`,`Vagon_num`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Ticket__Leg_of_Route1`
-    FOREIGN KEY (`Leg_Serial_number` , `RouteID`)
-    REFERENCES `mydb`.`Leg_of_Route` (`Serial_number_in_route` , `RouteID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Ticket__User_1`
-    FOREIGN KEY (`PassID`)
-    REFERENCES `mydb`.`User` (`UserID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
 -- -----------------------------------------------------
 -- Table `mydb`.`Trip`
 -- -----------------------------------------------------
@@ -225,10 +187,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Leg_of_Route` (
   `Date_arr` DATETIME NOT NULL,
   `Station_dep` INT NOT NULL,
   `Station_arr` INT NOT NULL,
+  `DateT` DATE NOT NULL DEFAULT(DATE(`Date_dep`)),
   PRIMARY KEY (`Serial_number_in_route`, `RouteID`, `Date_dep`),
   INDEX `fk_Leg_of_Route_Route_1_idx` (`RouteID` ASC) VISIBLE,
   INDEX `fk_Leg_of_Route_Station_1_idx` (`Station_arr` ASC) VISIBLE,
   INDEX `fk_Leg_of_Route_Station_2_idx` (`Station_dep` ASC) VISIBLE,
+  INDEX `DateT_UNIQUE` (`DateT` ASC) VISIBLE,
   CONSTRAINT `fk_Leg_of_Route_Route_1`
     FOREIGN KEY (`RouteID`)
     REFERENCES `mydb`.`Route` (`RouteID`)
@@ -242,6 +206,49 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Leg_of_Route` (
   CONSTRAINT `fk_Leg_of_Route_Station_2`
     FOREIGN KEY (`Station_dep`)
     REFERENCES `mydb`.`Station` (`StationID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Ticket`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`Ticket` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`Ticket` (
+  `Seat_Number` INT NOT NULL,
+ -- `Status` TINYINT(1) NULL DEFAULT 0,
+  `Date` DATE NOT NULL,
+  `Train_ID` INT NOT NULL,
+  `Vagon_type` VARCHAR(45) NOT NULL,
+  `Leg_Serial_number` INT NOT NULL,
+  `RouteID` INT NOT NULL,
+  `Pass_Name` VARCHAR(45) NULL,
+  `PassID` INT NULL,
+  `Vagon_num` INT NOT NULL,
+  PRIMARY KEY (`Seat_Number`, `Train_ID`, `Vagon_type`, `Leg_Serial_number`, `RouteID`, `Vagon_num`,`Date`),
+  INDEX `fk_Ticket__Vagon1_idx` (`Train_ID` ASC, `Vagon_type` ASC, `Vagon_num` ASC) VISIBLE,
+  INDEX `fk_Ticket__Leg_of_Route1_idx` (`Leg_Serial_number` ASC, `RouteID` ASC, `Date` ASC) VISIBLE,
+  INDEX `fk_Ticket__User_1_idx` (`PassID` ASC) VISIBLE,
+  INDEX `fk_Ticket_Leg_of_Route1_idx` (`Date` ASC) VISIBLE,
+  CONSTRAINT `fk_Ticket__Vagon1`
+    FOREIGN KEY (`Train_ID` , `Vagon_type`, `Vagon_num`)
+    REFERENCES `mydb`.`Vagon` (`Train_ID` , `Vagon_type`,`Vagon_num`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Ticket__Leg_of_Route1`
+    FOREIGN KEY (`Leg_Serial_number` , `RouteID`)
+    REFERENCES `mydb`.`Leg_of_Route` (`Serial_number_in_route` , `RouteID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Ticket_Leg_of_Route1`
+    FOREIGN KEY (`Date`)
+    REFERENCES `mydb`.`Leg_of_Route` (`DateT`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Ticket__User_1`
+    FOREIGN KEY (`PassID`)
+    REFERENCES `mydb`.`User` (`UserID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -262,7 +269,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Vagon` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
