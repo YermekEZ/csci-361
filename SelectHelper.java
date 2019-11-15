@@ -26,7 +26,7 @@ public class SelectHelper {
         }
         return stm;
     }
-    protected static PreparedStatement SearchPassTicket(Connection con, String Username) throws SQLException {
+    protected static PreparedStatement SearchHistory(Connection con, String Username) throws SQLException {
         String query = "select T.Seat_Number, T.Vagon_num, L1.Location, L2.Location, R.Date_dep, T.Train_ID, T.Pass_Name,T.PassID" +
                 " from Ticket T, Leg_of_route R, Station L1, Station L2 where T.PassID = " +
                 "(select UserID from user where Username = ?) " +
