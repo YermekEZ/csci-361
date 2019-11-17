@@ -1,4 +1,4 @@
-#SET PACKAGE
+//SET PACKAGE
 package Testing_DB;
 
 import java.sql.Connection;
