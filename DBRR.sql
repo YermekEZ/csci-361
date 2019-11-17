@@ -62,6 +62,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`User` (
   `Username` VARCHAR(45) NOT NULL,
   `Status` VARCHAR(45) NULL DEFAULT 'Passenger',
   `Password` VARCHAR(45) NULL DEFAULT '12345',
+  `Salary` INT NULL,
   PRIMARY KEY (`Username`),
   UNIQUE INDEX `User_UNIQUE` (`UserID` ASC, `Email` ASC) VISIBLE)
 ENGINE = InnoDB;
@@ -224,9 +225,9 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Ticket` (
   `Leg_Serial_number` INT NOT NULL,
   `RouteID` INT NOT NULL,
   `Pass_Name` VARCHAR(45) NULL,
-  `PassID` INT NULL,
+  `PassID` INT NOT NULL,
   `Vagon_num` INT NOT NULL,
-  PRIMARY KEY (`Seat_Number`, `Train_ID`, `Vagon_type`, `Leg_Serial_number`, `RouteID`, `Vagon_num`,`Date`),
+  PRIMARY KEY (`Seat_Number`, `Train_ID`, `Vagon_type`, `Leg_Serial_number`, `RouteID`, `Vagon_num`,`Date`, `PassID`),
   INDEX `fk_Ticket__Vagon1_idx` (`Train_ID` ASC, `Vagon_type` ASC, `Vagon_num` ASC) VISIBLE,
   INDEX `fk_Ticket__Leg_of_Route1_idx` (`Leg_Serial_number` ASC, `RouteID` ASC, `Date` ASC) VISIBLE,
   INDEX `fk_Ticket__User_1_idx` (`PassID` ASC) VISIBLE,
