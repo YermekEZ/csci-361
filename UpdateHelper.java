@@ -23,14 +23,15 @@ public class UpdateHelper {
         stm.setString(9,arrival);
         return stm;
     }
-    protected static PreparedStatement SetPassenger(Connection con, String fname, String lname, String email, int place, int train, int vagon, String date,String departure, String arrival) throws SQLException {
-        String query="Update Ticket T, Station L1, Station L2, leg_of_route R Set T.Pass_Name = ?, " +
-        "T.PassID = (Select UserID from User where Fname = ? and Lname = ? and Email = ?) " +
-                "where T.seat_number = ? and T.train_ID = ? and T.Vagon_num = ? and T.date = ?" +
-                "and L1.StationId=R.Station_dep and L2.StationID = R.Station_arr and R.RouteID=T.RouteID and R.Serial_number_in_route = T.Leg_Serial_number " +
-                "and L1.Location = ? and L2.Location = ?";
+      protected static PreparedStatement SetPassenger(Connection con, String fname, String lname, String email, int place, int train, int vagon, String date,String departure, String arrival,String pass_name) throws SQLException {
+        String query="Insert into Ticket (Pass_Name,PassID,seat_number,train_ID, Vagon_num,date, Leg_Serial_number, RouteID, Vagon_type)  values ( ?, " +
+        " (Select UserID from User where Fname = ? and Lname = ? and Email = ?), " +
+                "?, ?, ?, ?," +
+                "(Select distinct R.Serial_number_in_route from Station L1, Station L2, Leg_of_route R where L1.StationId=R.Station_dep and L2.StationID = R.Station_arr and L1.Location=? and L2.Location = ?), " +
+                "(select distinct R1.RouteID from Leg_of_route R1, Station S1, Station S2 where S1.StationId=R1.Station_dep and S2.StationID = R1.Station_arr and S1.Location=? and S2.Location = ?),"+
+                "(select Vagon_type from vagon where vagon.train_Id=? and vagon.Vagon_num=?))";
         PreparedStatement stm = con.prepareStatement(query);
-        stm.setString(1,fname);
+        stm.setString(1,pass_name);
         stm.setString(2,fname);
         stm.setString(3,lname);
         stm.setString(4,email);
@@ -40,6 +41,11 @@ public class UpdateHelper {
         stm.setString(8,date);
         stm.setString(9,departure);
         stm.setString(10,arrival);
+        stm.setString(11,departure);
+        stm.setString(12,arrival);
+        stm.setInt(13,train);
+        stm.setInt(14,vagon);
+
         return stm;
     }
 }
