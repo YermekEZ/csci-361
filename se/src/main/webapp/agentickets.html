@@ -1,0 +1,124 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <title>Document</title>
+
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="css_files_for_pages/style.css">
+
+</head>
+<body>
+<script src="js/toggle.js">
+</script>
+
+
+<button type="button" id="formButton">Toggle Form!</button>
+
+<form id="form1" >
+  <b>Date</b> <input type="text"  id = "date">
+  <br><br>
+  <b>Departure</b><input type="text" name="departure" id = "departure">
+  <br><br>
+  <b>Arrival</b><input type="text" name="arrival" id = "arrival">
+  <br><br>
+  <b>Time</b><input type="text" name="time" id = "time">
+  <br><br>
+
+
+  <button type="button" id="submit">Submit</button>
+</form>
+
+<input id = "number" type="text" placeholder="only numbers. E.g:123" name="numberField" onkeypress="return isNumberKey(event)" />
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6">
+      <h2>Tickets</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+
+      <table id="ticket"
+             class="table table-bordered
+                         table-condensed table-striped">
+        <thead class = "nohead">
+        <tr>
+          <th>#</th>
+          <th>RouteID</th>
+          <th>FirstName</th>
+          <th>LastName</th>
+          <th>seatNUmber</th>
+          <th>TrainId</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody id ="content">
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+</div>
+
+<table id="history" class="table table-bordered table-condensed table-striped">
+  <thead class = "nohead">
+  <tr>
+    <th>#</th>
+    <th>Seat</th>
+    <th>Departure</th>
+    <th>Arrival</th>
+    <th>Time</th>
+    <th>TrainId</th>
+  </tr>
+  </thead>
+
+
+</table>
+
+
+
+<div class="modal fade" id="userInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Enter Passenger Info</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group mb-3">
+
+          <input id="fname"  type="text" class="form-control" placeholder="First Name" aria-label="First Name" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+
+          <input id = "lname" type="text" class="form-control" placeholder="Second Name" aria-label="Second Name" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+
+          <input id = "email" type="text" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id = "reserveTicket" data-dismiss="modal">Reserve Ticket</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button class="btn btn-primary" id = "showHistory">Show History</button>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
