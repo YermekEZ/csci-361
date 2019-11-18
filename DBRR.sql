@@ -62,7 +62,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`User` (
   `Username` VARCHAR(45) NOT NULL,
   `Status` VARCHAR(45) NULL DEFAULT 'Passenger',
   `Password` VARCHAR(45) NULL DEFAULT '12345',
-  `Salary` INT NULL,
   PRIMARY KEY (`Username`),
   UNIQUE INDEX `User_UNIQUE` (`UserID` ASC, `Email` ASC) VISIBLE)
 ENGINE = InnoDB;
@@ -263,6 +262,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Vagon` (
   `Train_ID` INT NOT NULL,
   `Vagon_type` VARCHAR(45) NOT NULL,
   `Vagon_num` INT NOT NULL,
+  `Max_seats` INT NULL DEFAULT(20),
   PRIMARY KEY (`Train_ID`, `Vagon_type`, `Vagon_num`),
   CONSTRAINT `fk_Vagon_Train_1`
     FOREIGN KEY (`Train_ID`)
