@@ -26,7 +26,6 @@ public class LoginServlet extends HttpServlet {
 
     //DoPost without using ajax
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String ip = request.getRemoteAddr();
     	String username = request.getParameter("uname");
         System.out.println(username);
         String password = request.getParameter("pas");
