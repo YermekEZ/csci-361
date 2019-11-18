@@ -188,11 +188,18 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Leg_of_Route` (
   `Station_dep` INT NOT NULL,
   `Station_arr` INT NOT NULL,
   `DateT` DATE NOT NULL DEFAULT(DATE(`Date_dep`)),
+  `Train_ID` INT NOT NULL, 
   PRIMARY KEY (`Serial_number_in_route`, `RouteID`, `Date_dep`),
   INDEX `fk_Leg_of_Route_Route_1_idx` (`RouteID` ASC) VISIBLE,
   INDEX `fk_Leg_of_Route_Station_1_idx` (`Station_arr` ASC) VISIBLE,
   INDEX `fk_Leg_of_Route_Station_2_idx` (`Station_dep` ASC) VISIBLE,
+  INDEX `fk_Traind_ID_1_idx` (`Train_ID` ASC) VISIBLE,
   INDEX `DateT_UNIQUE` (`DateT` ASC) VISIBLE,
+  CONSTRAINT `fk_Traind_ID_1`
+    FOREIGN KEY (`Train_ID`)
+    REFERENCES `mydb`.`Train` (`ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
   CONSTRAINT `fk_Leg_of_Route_Route_1`
     FOREIGN KEY (`RouteID`)
     REFERENCES `mydb`.`Route` (`RouteID`)
