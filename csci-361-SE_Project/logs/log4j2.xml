@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+   <Appenders>
+      <Console name="Console" target="SYSTEM_OUT">
+         <PatternLayout pattern="%d{yyyy-MMM-dd hh:mm:ss a } %level %c - %m %n" />
+      </Console>
+      <JDBC name="mydb" tableName="APP_LOGS">
+         <ConnectionFactory
+            class="kz.edu.nu.cs.se.hw.ConnectionFactory" method="getConnection" />
+         <Column name="LOG_ID" pattern="%u" />
+         <Column name="ENTRY_DATE" isEventTimestamp="true" />
+         <Column name="LOGGER" pattern="%logger" />
+         <Column name="LOG_LEVEL" pattern="%level" />
+         <Column name="MESSAGE" pattern="%m" />
+         <Column name="EXCEPTION" pattern="%throwable " />
+      </JDBC>
+   </Appenders>
+
+   <Loggers>
+      <Logger name="kz.edu.nu.cs.se.hw.LoginServlet" level="debug"
+         additivity="false">
+         <AppenderRef ref="Console" />
+         <AppenderRef ref="mydb" />
+      </Logger>
+
+      <Root level="trace">
+         <AppenderRef ref="Console" />
+         <AppenderRef ref="mydb" />
+      </Root>
+   </Loggers>
+
+</Configuration>
