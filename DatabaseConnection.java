@@ -15,7 +15,7 @@ public class DatabaseConnection {
 			String dbDriver = "com.mysql.jdbc.Driver";
 			Class.forName(dbDriver);
 			//CHANGE PASSWORD!
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "qazxsw");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb?allowMultiQueries=true", "root", "qazxsw");
 			Statement mySt  = con.createStatement();
 			return con;
 	    } 
