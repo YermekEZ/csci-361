@@ -91,7 +91,6 @@ public class DbServlet extends HttpServlet {
 			Connection con = DatabaseConnection.initializeDatabase();
 			Statement mySt  = con.createStatement();
 			int r;
-			String query;
 			String date; int seat, leg, vagon,route;
 
 			seat = Integer.parseInt(request.getParameter("Seat"));
@@ -114,6 +113,6 @@ public class DbServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	}
+}
 
 

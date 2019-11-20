@@ -6,16 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8143706e-d78c-4e7d-9d1d-9a9b07050b0e" name="Default" comment="change of regservlet v3">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/InsertHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/InsertHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/Reserve.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/Reserve.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/SelectHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/SelectHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/ServletAutofill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/ServletAutofill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/UpdateHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/UpdateHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/agentickets.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/agentickets.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/toggle.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/toggle.js" afterDir="false" />
-    </list>
+    <list default="true" id="8143706e-d78c-4e7d-9d1d-9a9b07050b0e" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,8 +34,18 @@
         <item name="mydb@localhost" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
       </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="mydb@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="mydb: schema" type="c314c289:MysqlImplModel$Schema" />
+      </path>
     </expand>
     <select />
+  </component>
+  <component name="ErrorTreeViewConfiguration">
+    <option name="hideWarnings" value="true" />
+    <option name="HIDE_WARNINGS" value="true" />
   </component>
   <component name="FavoritesManager">
     <favorites_list name="dynamictodolist" />
@@ -52,9 +53,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Class" />
         <option value="HTML File" />
         <option value="CSS File" />
-        <option value="Class" />
       </list>
     </option>
   </component>
@@ -81,27 +82,27 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
     <property name="database.console.LAST_STATE" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Documents/SE/Train" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="project.structure.last.edited" value="Problems" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15820312" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.language" />
+    <property name="settings.editor.selected.configurable" value="project.propCompiler" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Lenovo\Desktop\dynamic-todo-list-exercise-361\src\main\webapp\css_files_for_pages" />
-      <recent name="C:\Users\Lenovo\Desktop\dynamic-todo-list-exercise-361\src\main\webapp\js" />
-      <recent name="C:\Users\Lenovo\Desktop\dynamic-todo-list-exercise-361\src\main\webapp\images" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Lenovo\Desktop\dynamic-todo-list-exercise-361\src\main\webapp" />
       <recent name="C:\Users\Lenovo\Desktop\dynamic-todo-list-exercise-361\src\main\java\kz\edu\nu\cs\se\hw" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="kz.edu.nu.cs.se.hw" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Lenovo\Desktop\dynamic-todo-list-exercise-361\src\main\webapp" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Lenovo\Desktop\dynamic-todo-list-exercise-361\src\main\webapp\css_files_for_pages" />
+      <recent name="C:\Users\Lenovo\Desktop\dynamic-todo-list-exercise-361\src\main\webapp\js" />
+      <recent name="C:\Users\Lenovo\Desktop\dynamic-todo-list-exercise-361\src\main\webapp\images" />
       <recent name="C:\Users\Lenovo\Desktop\dynamic-todo-list-exercise-361\src\main\java\kz\edu\nu\cs\se\hw" />
     </key>
   </component>
@@ -206,6 +207,7 @@
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -314,6 +316,8 @@
       <workItem from="1572978893072" duration="2210000" />
       <workItem from="1573410358620" duration="85000" />
       <workItem from="1573728103981" duration="11801000" />
+      <workItem from="1574248740794" duration="27443000" />
+      <workItem from="1574281947390" duration="5507000" />
     </task>
     <task id="LOCAL-00001" summary="change of regservlet">
       <created>1572859954646</created>
@@ -326,7 +330,16 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="136198000" />
+    <option name="totallyTimeSpent" value="169148000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -356,8 +369,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="change of regservlet" />
-    <MESSAGE value="change of regservlet v2" />
-    <MESSAGE value="change of regservlet v3" />
-    <option name="LAST_COMMIT_MESSAGE" value="change of regservlet v3" />
+    <option name="LAST_COMMIT_MESSAGE" value="change of regservlet" />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
   </component>
 </project>

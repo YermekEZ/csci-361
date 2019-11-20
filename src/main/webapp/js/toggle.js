@@ -23,30 +23,30 @@ function populate(arr){
 		tickets += '<td class = "type">'+value.type + '</td>';
 		tickets += '<td class = "leg">'+value.leg + '</td>';
 		tickets += '<td class = "route">'+value.route + '</td>';
-			tickets += "<td> <button type=\"button\"  aria-label=\"Close\" id =\"c";
-			tickets += key;
-			tickets += "\" onClick= \" getInfo(this.id)\"";
-			tickets += "> cancel </button> </td>";
+		tickets += "<td> <button type=\"button\"  aria-label=\"Close\" id =\"c";
+		tickets += key;
+		tickets += "\" onClick= \" getInfo(this.id)\"";
+		tickets += "> cancel </button> </td>";
 		tickets += "</tr>";
 	});
 	$('#ticket').append(tickets);
 }
 
 function get(){
-		console.log("In get val");
-		$.ajax  ({
-			url : 'DbServlet',
-			data:{
-				Arrival:$('#arrival').val(),
-				Date: $('#date').val(),
-				Departure:$('#departure').val()
-			},
-			type: "GET",
-			success : function(res) {
-				console.log("successful In get val");
-				populate(res);
-			}
-		});
+	console.log("In get val");
+	$.ajax  ({
+		url : 'DbServlet',
+		data:{
+			Arrival:$('#arrival').val(),
+			Date: $('#date').val(),
+			Departure:$('#departure').val()
+		},
+		type: "GET",
+		success : function(res) {
+			console.log("successful In get val");
+			populate(res);
+		}
+	});
 }
 
 
@@ -59,14 +59,14 @@ function getInfo(id){
 	var el = "tr#"+ row;
 	console.log(el);
 	$(el).each(function() {
-        var route = $(this).find(".route").text();
-        var seat = $(this).find(".seat").text();
-        var date = $(this).find(".date").text();
+		var route = $(this).find(".route").text();
+		var seat = $(this).find(".seat").text();
+		var date = $(this).find(".date").text();
 		var leg = $(this).find(".leg").text();
 		var vagon = $(this).find(".vagon").text();
-        sendTicket(seat, route, date, leg, vagon, row);
-});
-	
+		sendTicket(seat, route, date, leg, vagon, row);
+	});
+
 }
 
 // function reserveUser(id){
@@ -140,7 +140,7 @@ function sendTicket(seat, route, date, leg, vagon, row){
 	var cancel = confirm("Are you sure you want to cancel "+ name+" ticket?" );
 	if (cancel == false){
 	}else{
-	console.log("in send ticket")
+		console.log("in send ticket")
 		$.ajax  ({
 			url : 'DbServlet',
 			data:{
@@ -155,7 +155,7 @@ function sendTicket(seat, route, date, leg, vagon, row){
 				if(res===1){
 					console.log("ICANSEE"+row);
 					console.log("res is 1");
-			        $("tr#"+row).remove();
+					$("tr#"+row).remove();
 				}
 				console.log("successful In get val"+res);
 			}
@@ -206,107 +206,107 @@ function showHistory(r){
 
 // -------------------- FROM SOME.JS ----------------------
 function findMax(){
-    console.log("in max find");
-    console.log(ar);
-    for(var i = 0; i < ar.length; i+=1){
-        var n = getNumberPart(ar[i].id);
-        var x = parseInt(n);
-        if(x>max){
-            max = x;
-        }
-    }
+	console.log("in max find");
+	console.log(ar);
+	for(var i = 0; i < ar.length; i+=1){
+		var n = getNumberPart(ar[i].id);
+		var x = parseInt(n);
+		if(x>max){
+			max = x;
+		}
+	}
 
 }
 
 function prepareData(){
-    ar.length = 0;
-    ar_pos.length = 0;
-    var table = document.getElementById('ticket');
-    var rowLength = table.rows.length;
-    for(var i=1; i<rowLength; i+=1){
-        var row = table.rows[i];
-        ar.push(row)
-    }
+	ar.length = 0;
+	ar_pos.length = 0;
+	var table = document.getElementById('ticket');
+	var rowLength = table.rows.length;
+	for(var i=1; i<rowLength; i+=1){
+		var row = table.rows[i];
+		ar.push(row)
+	}
 
-    var temp = 0;
-    var counter = 0;
-    for (var j=1; j<10; j+=1){
-        counter = 0;
-        for(var k =0; k<ar.length; k+=1){
-            temp = getNumberPart(ar[k].id)
-            temp = temp.slice(0,1);
-            var x  = parseInt(temp);
-            if(x ===j){
-                counter+=1
-            }
-        }
-        ar_pos.push(counter);
+	var temp = 0;
+	var counter = 0;
+	for (var j=1; j<10; j+=1){
+		counter = 0;
+		for(var k =0; k<ar.length; k+=1){
+			temp = getNumberPart(ar[k].id)
+			temp = temp.slice(0,1);
+			var x  = parseInt(temp);
+			if(x ===j){
+				counter+=1
+			}
+		}
+		ar_pos.push(counter);
 
-    }
+	}
 
-    findMax();
+	findMax();
 
-    console.log(ar);
-    console.log(ar_pos);
-    console.log(max);
+	console.log(ar);
+	console.log(ar_pos);
+	console.log(max);
 }
 
 function isNumberKey(evt){
-    var charCode = (evt.which) ? evt.which : event.keyCode
-    if (charCode > 31 && (charCode < 48 || charCode > 57))
-        return false;
-    return true;
+	var charCode = (evt.which) ? evt.which : event.keyCode
+	if (charCode > 31 && (charCode < 48 || charCode > 57))
+		return false;
+	return true;
 }
 
 function getNumberPart(s){
-    var end = s.length
-    var ans = s.slice(1,end)
-    return ans
+	var end = s.length
+	var ans = s.slice(1,end)
+	return ans
 }
 function getNumber(s){
 
-    return s.cells[1].innerText;
+	return s.cells[1].innerText;
 }
 function compare(a,b){
-    var num = returnNumber();
-    if(num === 0){
-        return 0;
-    }
-    var len = num.length;
-    console.log(num);
-    var num2 = num.slice(0, len-1);
-    console.log(num2);
-    var t1 = getNumber(a);
-    var t2 = getNumber(b);
-    if(len<=t1.length&&len<=t2){
-        t1 = t1.slice(0,len);
-        t2 = t2.slice(0,len);
+	var num = returnNumber();
+	if(num === 0){
+		return 0;
+	}
+	var len = num.length;
+	console.log(num);
+	var num2 = num.slice(0, len-1);
+	console.log(num2);
+	var t1 = getNumber(a);
+	var t2 = getNumber(b);
+	if(len<=t1.length&&len<=t2){
+		t1 = t1.slice(0,len);
+		t2 = t2.slice(0,len);
 
-        c1 = t1.slice(0,len-1);
-        c2 = t2.slice(0,len-1);
-    }
-    if (t1 == num && t2==num){
-        return -1;
-    }else if(t1 == num && t2!=num){
-        return -1;
-    }else if(t1 != num && t2==num){
-        console.log("here");
-        return 1;
-    }else if(t1 == num && c2==num2){
-        return -1;
-    }else if(t1 == num && c2!=num2){
-        return -1;
-    }
-    else if(t1 != num && c2==num2){
-        return 1;
-    }else if(c1 == num2 && t2==num){
-        return 1;
-    }else if(c1 == num2 && t2!=num){
-        return -1;
-    }
-    else{
-        return 1;
-    }
+		c1 = t1.slice(0,len-1);
+		c2 = t2.slice(0,len-1);
+	}
+	if (t1 == num && t2==num){
+		return -1;
+	}else if(t1 == num && t2!=num){
+		return -1;
+	}else if(t1 != num && t2==num){
+		console.log("here");
+		return 1;
+	}else if(t1 == num && c2==num2){
+		return -1;
+	}else if(t1 == num && c2!=num2){
+		return -1;
+	}
+	else if(t1 != num && c2==num2){
+		return 1;
+	}else if(c1 == num2 && t2==num){
+		return 1;
+	}else if(c1 == num2 && t2!=num){
+		return -1;
+	}
+	else{
+		return 1;
+	}
 }
 
 // function compare2(a,b){
@@ -323,41 +323,41 @@ function compare(a,b){
 
 function returnNumber(){
 
-    if($("#number").val()===""){
-        return 0;
+	if($("#number").val()===""){
+		return 0;
 
-    }
-    return $("#number").val();
+	}
+	return $("#number").val();
 }
 
 
 function rearrange(evt){
-    var charCode = (evt.which) ? evt.which : event.keyCode
-    if (charCode > 31 && (charCode < 48 || charCode > 57)){
-        return 0
-    }
+	var charCode = (evt.which) ? evt.which : event.keyCode
+	if (charCode > 31 && (charCode < 48 || charCode > 57)){
+		return 0
+	}
 
 
 
-    window.ar.sort(compare);
-    var num = returnNumber();
-    var n = parseInt(num);
-    if(num===0){
-        return 0;
-    }
-    if(n>max||n<0){
+	window.ar.sort(compare);
+	var num = returnNumber();
+	var n = parseInt(num);
+	if(num===0){
+		return 0;
+	}
+	if(n>max||n<0){
 
-    }
-    num = num.slice(0,1);
-    var x = parseInt(num);
-    console.log(ar);
-    console.log("here the number of times: "+ar_pos[x-1]);
+	}
+	num = num.slice(0,1);
+	var x = parseInt(num);
+	console.log(ar);
+	console.log("here the number of times: "+ar_pos[x-1]);
 
-    // ar = ar.slice(0, ar_pos[x-1]).sort(compare2).concat(ar.slice(ar_pos[x-1], ar.len));
-    console.log(ar);
-    for (var j = ar.length; j>=0;j-=1){
-        $(ar[j]).insertAfter("#content");
-    }
+	// ar = ar.slice(0, ar_pos[x-1]).sort(compare2).concat(ar.slice(ar_pos[x-1], ar.len));
+	console.log(ar);
+	for (var j = ar.length; j>=0;j-=1){
+		$(ar[j]).insertAfter("#content");
+	}
 }
 
 
@@ -368,38 +368,37 @@ $(document).ready(function() {
 
 
 
-$("#formButton").click(function() {
-      $("#form1").toggle();
-    });
-$("#reserveTicket").click(function(){
-	
-});
-$("#showHistory").click(function(){
-	historyRequest();
-});
+	$("#formButton").click(function() {
+		$("#form1").toggle();
+	});
+	$("#reserveTicket").click(function(){
 
-    $("#submit").click(function() {
-      $("#form1").toggle();
-      console.log('deleteing');
-      if ($("#ticket tbody tr").length != 0) {
-    	  $("#ticket").find("tr:gt(0)").remove();
-        }
-      get();
-      console.log($('#arrival').val());
-      console.log($('#date').val());
-      window.setTimeout(prepareData,1000);
-    });
+	});
+	$("#showHistory").click(function(){
+		historyRequest();
+	});
+
+	$("#submit").click(function() {
+		$("#form1").toggle();
+		console.log('deleteing');
+		if ($("#ticket tbody tr").length != 0) {
+			$("#ticket").find("tr:gt(0)").remove();
+		}
+		get();
+		console.log($('#arrival').val());
+		console.log($('#date').val());
+		window.setTimeout(prepareData,1000);
+	});
 
 
 
 
 //------------------------ FROM SOME.JS ------------------------------
-    $("#number").on('keyup',function(event){
-        rearrange(event);
-        console.log("rearranged");
-    });
+	$("#number").on('keyup',function(event){
+		rearrange(event);
+		console.log("rearranged");
+	});
 
 // ------------------------ END SOME.JS ------------------------------
-   
-  });
-  
+
+});

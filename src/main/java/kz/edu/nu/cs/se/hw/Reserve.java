@@ -81,8 +81,8 @@ public class Reserve extends HttpServlet {
 		Gson gson = new Gson();
 		String json;
 		response.setContentType("application/json;charset=UTF-8");
-     try {
-     Connection con = DatabaseConnection.initializeDatabase();
+		try {
+			Connection con = DatabaseConnection.initializeDatabase();
 //            int r, train, vagon;
 //            String query;
 //            String seat, route, fname, lname, email, date, departure, arrival, pass_name;
@@ -107,9 +107,9 @@ public class Reserve extends HttpServlet {
 //            response.getWriter().write(json);
 //            con.close();
 
-   } catch (Exception e) {
-         e.printStackTrace();
-      }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 

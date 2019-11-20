@@ -11,6 +11,18 @@
         <servlet-class>kz.edu.nu.cs.se.hw.RegServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>PassengerTicketPurchaseTwoServlet</servlet-name>
+        <display-name>PassengerTicketPurchaseTwoServlet</display-name>
+        <description></description>
+        <servlet-class>kz.edu.nu.cs.se.hw.PassengerTicketPurchaseTwoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PassengerTicketPurchaseServlet</servlet-name>
+        <display-name>PassengerTicketPurchaseServlet</display-name>
+        <description></description>
+        <servlet-class>kz.edu.nu.cs.se.hw.PassengerTicketPurchaseServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>PassengerSearchServlet</servlet-name>
         <display-name>PassengerSearchServlet</display-name>
         <description></description>
@@ -49,8 +61,16 @@
         <url-pattern>/DbServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>PassengerTicketPurchaseServlet</servlet-name>
+        <url-pattern>/PassengerTicketPurchaseServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
             <url-pattern>/LoginServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PassengerTicketPurchaseTwoServlet</servlet-name>
+        <url-pattern>/PassengerTicketPurchaseTwoServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PassengerSearchServlet</servlet-name>

@@ -1,5 +1,5 @@
 package kz.edu.nu.cs.se.hw;
-//DATE(R1.Date_dep), R1.Train_ID,R1.serial_number_in_route,R1.routeID, TIME(R1.Date_dep), L1.Location, L2.Location
+
 public class Leg {
     private String Date;
     private int train;

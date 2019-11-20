@@ -10,20 +10,125 @@
       <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>Hello, world</title>
-
 
       <script type="text/javascript">
 
-          function showRow() {
+          var passenger_purchase_row = [];
+          var number = 0;
+          var vagon = 0;
+          var seat = 0;
+          var Target = "";
+          
+          function passenger_purchase_seat() {
+              $.ajax({
+                  url: "PassengerTicketPurchaseTwoServlet",
+                  data: {
+                      date: passenger_purchase_row[0],
+                      departure: passenger_purchase_row[5],
+                      arrival: passenger_purchase_row[6],
+                      vagon: vagon,
+                      seat: seat,
+                      name : Target,
+                      username: document.cookie.slice(document.cookie.indexOf("=")+1,document.cookie.indexOf(","))
+                  },
+                  type: 'POST',
+                  success: function () {
+                      console.log("TICKET PURCHASED");
+                      $("#Result_info").html("Success Purchase :]");
+                      window.location.replace("http://localhost:8080/");
 
-            console.log("PURCHASED");
+                  }
+              })
+          }
+          // используется для скрытия seat_dropdown --> показывает номер места выбранного passenger --> show purchase button
+          function doSwagSeatChose(seat_number) {
+              $("#Seat_dropDown").hide();
+              $("#Seat_info").html("");
+              $("#Seat_info").html("Your Seat: №" + seat_number);
+              seat = seat_number;
+
+              if ($("#Target_TicketHaver").val()=="") {
+                  $("#Target_info").html("Please write the name of owner")
+
+              }
+              else {
+                  Target = $("#Target_TicketHaver").val();
+                  $("#Target_TicketHaver").hide();
+                  $("#Target_info").html("Ticket owner name: " + Target);
+
+                  $("#purchase_butt").show();
+              }
+          }
+          // используется для вставки free_seat в seat_dropdown
+          function createSeatDropdownMenu(free_seat_array) {
+            var seat ="";
+
+            for (var i = 0; i<free_seat_array.length;i++) {
+                number = free_seat_array[i];
+                seat =seat + "<a class=\"dropdown-item\" onclick=\"doSwagSeatChose(" +number + ")\">" + free_seat_array[i] + "</a>\n";
+
+            }
+              $("#Seat_drop_body").append(seat);
 
           }
+          // используется для получения arrayList<Integer> свободных мест для определенного места;
+          function getVagonAndFreeSeat() {
+              $.ajax({
+                  url:"/PassengerTicketPurchaseServlet",
+                  dataType:'json',
+                  type: 'GET',
+                  success: function (r) {
+                      createSeatDropdownMenu(r);
+                  }
+              })
+          }
+          // используется для получения номера вагона--> скрытия drowdown меню вагона --> отправки данных в бэкенд + показания какой вагон был выбран
+          function doSwagVagonChose(vagon_number) {
+              $("#Vagon_dropDown").hide();
+              if ($("#Target_TicketHaver").val()=="") {
+                  $("#Target_info").html("Please, firstly enter name of owner and follow given steps");
+                  seat = 0;
+                  vagon = 0;
+                  Target = "";
 
+                  $("#Seat_drop_body").empty();
+                  $("#purchase_butt").hide();
+
+                  $("#Seat_dropDown").hide();
+                  $("#Vagon_info").html("");
+                  $("#Seat_info").html("");
+                  $("#Result info").html("");
+                  $("#Vagon_dropDown").show();
+                  $("#Target_TicketHaver").show();
+
+              }
+
+              $("#Vagon_info").html("");
+              $("#Vagon_info").html("Your Vagon: №" + vagon_number);
+              vagon = vagon_number;
+
+              $.ajax({
+                  url:"PassengerTicketPurchaseServlet",
+                  data: {
+                      date: passenger_purchase_row[0],
+                      departure: passenger_purchase_row[5],
+                      arrival: passenger_purchase_row[6],
+                      vagon : vagon_number
+                  },
+                  type: 'POST',
+                  success: function () {
+                    getVagonAndFreeSeat();
+                  }
+              })
+
+              $("#Seat_dropDown").show();
+
+          }
+          // используется для получения таблицы "билетов" passenger принимая в себя arraylist<arraylist>
           function creatingPassengerSearchTable(passenger_arraylist_of_arraylist) {
               console.log(passenger_arraylist_of_arraylist);
-              var line_number=1;
+              passenger_purchase_row = passenger_arraylist_of_arraylist[0];
+              var line_number = 1;
 
               for (var i = 0; i<passenger_arraylist_of_arraylist.length;i++) {
 
@@ -33,14 +138,15 @@
                       row = row + "<td>" + passenger_arraylist_of_arraylist[i][k] + "</td>";
 
                   }
-                  var bla = passenger_arraylist_of_arraylist[line_number-1].toString();
-                  row = row + "<td>" + "<button onclick='showRow()'>Purchase</button>" +"</td>";
-
+                  row = row + "<td>" + "<button data-toggle=\"modal\" data-target=\"#passengerTicketer\">Purchase</button>" +"</td>";
                   line_number++;
                   row = row + "</tr>";
 
                   $("#passenger_ticket_tbody").append(row);
               }
+
+              $("#Seat_dropDown").hide();
+
 
           }
           // используется для получения json(ArrayList<ArrayList<String>>: [][0]=Date,[][1]=Departure,[][2]=Arrival)
@@ -87,6 +193,8 @@
           // используется для проверки юзера в куки
           function cookie_checker() {
               if (document.cookie.match($("#Login_username").toString())) {
+
+                  username = $("#Login_username").val();
                   return true;
               }
               else return false;
@@ -106,7 +214,7 @@
                   window.location.replace("http://localhost:8080/");
               }
               else {
-                  $("#login_SuccessOrFail").html("Wrong Email or Password");}
+                  $("#login_SuccessOrFail").html("Wrong Username or Password");}
           }
           // используется для получения json (ArrayList[0] = username, ArrayList[1] = user_status)
           function getInfo() {
@@ -299,8 +407,9 @@
           }
 
           $(document).ready(function () {
-
+              $("#purchase_butt").hide();
               $("#Search_table").hide();
+
 
               if (passenger_checker()==true) {
                   $("#User_Search_Form").hide();
@@ -356,6 +465,30 @@
 
               $("#submit1").on('click',function () {
                   getReg();
+              });
+
+              $("#Passenger_Ticket_button_reset").on('click',function () {
+                  seat = 0;
+                  vagon = 0;
+                  Target = "";
+
+                  $("#Seat_drop_body").empty();
+                  $("#purchase_butt").hide();
+
+                  $("#Seat_dropDown").hide();
+                  $("#Vagon_info").html("");
+                  $("#Seat_info").html("");
+                  $("#Result_info").html("");
+                  $("#Result_info").html("");
+                  $("#Target_info").html("");
+                  $("#Vagon_dropDown").show();
+                  $("#Target_TicketHaver").show();
+
+
+              });
+
+              $("#Passenger_Ticket_button_purchase").on('click',function () {
+                  passenger_purchase_seat();
               });
 
           });
@@ -489,6 +622,94 @@
           </div>
 
 
+          <!--Modal для покупки passenger билета с двумя дропдаунами-->
+          <div class="modal fade" id="passengerTicketer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Now choose Your vagon and Seat</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="container login-container">
+
+                        <div class="col-md-6 login-form-2">
+                            <!--
+                            <form action="./LoginServlet" method="post">
+                                -->
+                            <form>
+                                <div class="form-group">
+                                    <input id="Target_TicketHaver" type="text" class="form-control" placeholder="Owner Name*" value="" />
+                                </div>
+
+                                <div class="form-group">
+                                    <span id ="Target_info"  class="text-info"></span><br>
+                                </div>
+
+                                <div class="dropdown" id="Vagon_dropDown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="VagonMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Vagon number
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" onclick="doSwagVagonChose(1)" >1</a>
+                                        <a class="dropdown-item" onclick="doSwagVagonChose(2)">2</a>
+                                        <a class="dropdown-item" onclick="doSwagVagonChose(3)">3</a>
+                                        <a class="dropdown-item" onclick="doSwagVagonChose(4)">4</a>
+                                        <a class="dropdown-item" onclick="doSwagVagonChose(5)">5</a>
+                                        <a class="dropdown-item" onclick="doSwagVagonChose(6)">6</a>
+                                        <a class="dropdown-item" onclick="doSwagVagonChose(7)">7</a>
+                                        <a class="dropdown-item" onclick="doSwagVagonChose(8)">8</a>
+                                        <a class="dropdown-item" onclick="doSwagVagonChose(9)">9</a>
+                                    </div>
+                                </div>
+
+                                <!--Shows which vagon was chosen by passenger-->
+                                <div class="form-group">
+                                    <span id ="Vagon_info"  class="text-info"></span><br>
+                                </div>
+
+                                <div class="dropdown" id="Seat_dropDown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="SeatMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Seat Number
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="Seat_drop_body">
+                                    </div>
+                                </div>
+
+                                <!--Shows which seat was chosen by passenger-->
+                                <div class="form-group">
+                                    <span id ="Seat_info"  class="text-info"></span><br>
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <span id ="Result_info"  class="text-info"></span><br>
+                                </div>
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+
+                    <div id="purchase_butt">
+                        <input type="button" class="btn btn-secondary" value="Purchase" id="Passenger_Ticket_button_purchase"/></input>
+
+                    </div>
+
+                    <input type="button" class="btn btn-secondary" value="Reset" id="Passenger_Ticket_button_reset"/></input>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -539,10 +760,7 @@
 
                   <input id="Search_Date" type="text" class="form-control" placeholder="Choose date..." aria-label="Date" aria-describedby="basic-addon1" >
 
-               <div class="autocomplete">
                    <input id="Search_Departure" type="text" class="form-control" placeholder="Choose departure..." aria-label="Departure" aria-describedby="basic-addon1" onkeyup="something()">
-               </div>
-
 
                  <input id="Search_Arrival" type="text" class="form-control" placeholder="Choose arrival..." aria-label="Arrival" aria-describedby="basic-addon1">
 
@@ -582,10 +800,10 @@
       </table>
 
 
-    <div class = "autocomplete">
-        <input type="text" id="search-box" onkeyup = "something()"    placeholder="Country Name" />
-        <div id="suggesstion-box"></div>
-    </div>
+    <!--<div class = "autocomplete">-->
+        <!--<input type="text" id="search-box" onkeyup = "something()"    placeholder="Country Name" />-->
+        <!--<div id="suggesstion-box"></div>-->
+    <!--</div>-->
 
 
 

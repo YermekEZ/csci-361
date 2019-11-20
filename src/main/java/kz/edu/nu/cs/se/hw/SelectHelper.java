@@ -20,8 +20,8 @@ public class SelectHelper {
     protected static PreparedStatement SearchRoutePassenger(Connection con, String date, String departure, String arrival) throws SQLException {
         PreparedStatement stm;
         String query ="select DATE(R1.Date_dep), TIME(R1.Date_dep), R1.Train_ID, R1.Serial_number_in_route, R1.RouteID, L1.Location, L2.Location from leg_of_route R1,leg_of_route R2, station L1, station L2"+
-        " where DATE(R1.Date_dep) =? and DATE(R2.Date_Dep)=DATE(R1.Date_arr) and L1.Location = ? and L2.Location = ?"+
-        "and L1.StationId=R1.Station_dep and L2.StationID = R2.Station_arr and R1.RouteID=R2.RouteID";
+                " where DATE(R1.Date_dep) =? and DATE(R2.Date_Dep)=DATE(R1.Date_arr) and L1.Location = ? and L2.Location = ?"+
+                "and L1.StationId=R1.Station_dep and L2.StationID = R2.Station_arr and R1.RouteID=R2.RouteID";
 
         stm = con.prepareStatement(query);
         stm.setString(1, date);
