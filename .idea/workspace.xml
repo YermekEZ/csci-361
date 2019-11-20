@@ -6,7 +6,15 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8143706e-d78c-4e7d-9d1d-9a9b07050b0e" name="Default" comment="" />
+    <list default="true" id="8143706e-d78c-4e7d-9d1d-9a9b07050b0e" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/dynamictodolist_war.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/dynamictodolist_war.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/dynamictodolist_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/dynamictodolist_war_exploded.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/PassengerSearchServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/PassengerSearchServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/SearchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/SearchService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/SelectHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/SelectHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.html" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,23 +57,6 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>\&lt;servlet\&gt;\n\	\	\&lt;servlet\-name\&gt;LoginServlet\&lt;\/servlet\-name\&gt;\n\	\	\&lt;display\-name\&gt;DbServlet\&lt;\/display\-name\&gt;\n\	\	\&lt;description\&gt;\&lt;\/description\&gt;\n\	\	\&lt;servlet\-class\&gt;kz\.edu\.nu\.cs\.se\.hw\.DbServlet\&lt;\/servlet\-class\&gt;\n\	\&lt;\/servlet\&gt;</find>
-      <find>\&lt;div class\=\&quot;modal\-body\&quot;\&gt;\n                      \n\n\n\n                \&lt;\/div\&gt;</find>
-      <find>\&lt;div class\=\&quot;modal\-body\&quot;\&gt;\n                      \n\n\n\n                \&lt;\/div\&gt;\n</find>
-      <find>aga</find>
-      <find>myprofile</find>
-      <find>login_SuccessOrFail</find>
-      <find>dbservlet</find>
-      <find>form1</find>
-      <find>style</find>
-      <find>create</find>
-    </findStrings>
-    <dirStrings>
-      <dir>C:\Users\Lenovo\Desktop\dynamic-todo-list-exercise-361\src\main\webapp</dir>
-    </dirStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -93,7 +84,7 @@
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.last.edited" value="Problems" />
     <property name="project.structure.proportion" value="0.15820312" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="configurable.group.language" />
@@ -220,6 +211,7 @@
       </method>
     </configuration>
     <configuration name="Unnamed" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.5.45" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="BROWSER_ID" value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="dynamictodolist:war">
@@ -373,55 +365,5 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="change of regservlet" />
     <option name="LAST_COMMIT_MESSAGE" value="change of regservlet" />
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>Kotlin SDK</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectJDKs.UI">
-        <settings>
-          <last-edited>10</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
   </component>
 </project>

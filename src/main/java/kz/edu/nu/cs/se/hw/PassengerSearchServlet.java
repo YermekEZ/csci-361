@@ -27,7 +27,7 @@ public class PassengerSearchServlet extends HttpServlet {
 
         try{
             Connection con = DatabaseConnection.initializeDatabase();
-            PreparedStatement mySt  = SelectHelper.SearchRoute(con, Date,Departure,Arrival);
+            PreparedStatement mySt  = SelectHelper.SearchRoutePassenger(con, Date,Departure,Arrival);
             ResultSet r = mySt.executeQuery();
             System.out.println("Passenger Search Query :"+mySt.toString());
 
@@ -38,6 +38,9 @@ public class PassengerSearchServlet extends HttpServlet {
                 single_row.add(r.getString(2));
                 single_row.add(r.getString(3));
                 single_row.add(r.getString(4));
+                single_row.add(r.getString(5));
+                single_row.add(r.getString(6));
+                single_row.add(r.getString(7));
                 Passenger_Search_table.add(single_row);
             }
             System.out.println("Hello "  +Passenger_Search_table);

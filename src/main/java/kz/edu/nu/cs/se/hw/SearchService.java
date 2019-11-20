@@ -62,13 +62,7 @@ public class SearchService {
 
     @GET
     public Response getList() {
-
         Gson gson = new Gson();
-
         return Response.ok(gson.toJson(Search_table)).build();
     }
-
-
-
-
 }
