@@ -1,22 +1,30 @@
 package kz.edu.nu.cs.se.hw;
 
 public class Ticket {
-	private String dat;
-	private int train;
-	private int leg;
-	private int route;
-	private String time;
+	private int seat;
+	private int vagon;
 	private String dep;
 	private String arr;
+	private String date;
+	private int train;
+	private String name;
+	private int id;
+	private String type;
+	private int leg;
+	private int route;
 
 
-	public Ticket(String d, int t, int l, int r, String time, String dep, String arr) {
-		this.dat = d;
+	public Ticket(int s, int v, String dep, String arr, String date, int t, String n, int id, String type, int leg,int route) {
+		this.seat = s;
+		this.vagon = v;
+		this.date = date;
+		this.name = n;
 		this.train = t;
-		this.leg = l;
-		this.route = r;
-		this.time = time;
 		this.dep = dep;
 		this.arr = arr;
+		this.id = id;
+		this.type = type;
+		this.leg = leg;
+		this.route = route;
 	}
 }

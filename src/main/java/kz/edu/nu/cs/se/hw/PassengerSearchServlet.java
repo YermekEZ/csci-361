@@ -35,10 +35,10 @@ public class PassengerSearchServlet extends HttpServlet {
 
                 ArrayList<String> single_row = new ArrayList<>();
                 single_row.add(r.getString(1));
-                single_row.add(r.getString(2));
+                single_row.add(r.getString(5));
                 single_row.add(r.getString(3));
                 single_row.add(r.getString(4));
-                single_row.add(r.getString(5));
+                single_row.add(r.getString(2));
                 single_row.add(r.getString(6));
                 single_row.add(r.getString(7));
                 Passenger_Search_table.add(single_row);

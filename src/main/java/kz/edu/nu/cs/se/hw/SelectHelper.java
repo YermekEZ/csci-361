@@ -55,8 +55,8 @@ public class SelectHelper {
     }
     protected static PreparedStatement SearchLeg(Connection con, String date, String departure, String arrival) throws SQLException {
         PreparedStatement stm;
-        String query ="select distinct DATE(R1.Date_dep), R1.Train_ID,R1.serial_number_in_route,R1.routeID, TIME(R1.Date_dep), L1.Location, L2.Location from leg_of_route R1,leg_of_route R2, station L1, station L2" +
-                "where DATE(R1.Date_dep) = ? and DATE(R2.Date_Dep)=DATE(R1.Date_arr) and L1.Location = ? and L2.Location = ? " +
+        String query ="select DATE(R1.Date_dep), R1.Train_ID,R1.serial_number_in_route,R1.routeID, TIME(R1.Date_dep), L1.Location, L2.Location from leg_of_route R1,leg_of_route R2, station L1, station L2" +
+                " where DATE(R1.Date_dep) = ? and DATE(R2.Date_Dep)=DATE(R1.Date_arr) and L1.Location = ? and L2.Location = ? " +
                 "and L1.StationId=R1.Station_dep and L2.StationID = R1.Station_arr";
         stm = con.prepareStatement(query);
         stm.setString(1, date);
@@ -76,4 +76,16 @@ public class SelectHelper {
         stm.setInt(4, vagon);
         return stm;
     }
+    protected static PreparedStatement SearchTicket(Connection con, String date, String departure, String arrival) throws SQLException {
+        String query = "select T.Seat_Number,T.Vagon_num, L1.Location, L2.Location, DATE(R.Date_dep), T.Train_ID,T.Leg_Serial_Number, T.Pass_Name, T.PassID, T.Vagon_type, T.RouteID" +
+                " from Ticket T, Leg_of_route R, Station L1, Station L2 " +
+                "where DATE(R.Date_dep) = ? and L1.Location = ? and L2.Location = ? " +
+                "and L1.StationId=R.Station_dep and L2.StationID = R.Station_arr and R.RouteID=T.RouteID and R.Serial_number_in_route = T.Leg_Serial_number";
+        PreparedStatement stm = con.prepareStatement(query);
+        stm.setString(1, date);
+        stm.setString(2, departure);
+        stm.setString(3, arrival);
+        return stm;
+    }
+
 }
