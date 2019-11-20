@@ -96,7 +96,14 @@ insert into vagon(train_id, vagon_type,vagon_num) values(3, 'Default', 8);
 insert into vagon(train_id, vagon_type,vagon_num) values(3, 'Default', 9);
 
 delete from ticket;
-insert into ticket(seat_number,train_ID,vagon_type, leg_serial_number, RouteID, Vagon_num,Date,PassID,Pass_Name) values(1 ,1, 'Lux', 1,1,1,DATE(NOW()),107,"Aga");
-insert into ticket(seat_number,train_ID,vagon_type, leg_serial_number, RouteID, Vagon_num,Date,PassID,Pass_Name) values(1 ,1, 'Lux', 2,2,1,DATE(NOW()),107, "LilBai");
+insert into ticket(seat_number,train_ID,vagon_type, leg_serial_number, RouteID, Vagon_num,Date,PassID,Pass_Name) values(1 ,1, 'Lux', 1,1,1,DATE(NOW()),106,"Adil");
+insert into ticket(seat_number,train_ID,vagon_type, leg_serial_number, RouteID, Vagon_num,Date,PassID,Pass_Name) values(2 ,1, 'Lux', 1,1,1,DATE(NOW()),106,"Let");
+insert into ticket(seat_number,train_ID,vagon_type, leg_serial_number, RouteID, Vagon_num,Date,PassID,Pass_Name) values(3 ,1, 'Lux', 1,1,1,DATE(NOW()),106,"Adilet");
+insert into ticket(seat_number,train_ID,vagon_type, leg_serial_number, RouteID, Vagon_num,Date,PassID,Pass_Name) values(4 ,1, 'Lux', 1,1,1,DATE(NOW()),106,"Alet");
+insert into ticket(seat_number,train_ID,vagon_type, leg_serial_number, RouteID, Vagon_num,Date,PassID,Pass_Name) values(5 ,1, 'Lux', 1,1,1,DATE(NOW()),106,"Dil");
+insert into ticket(seat_number,train_ID,vagon_type, leg_serial_number, RouteID, Vagon_num,Date,PassID,Pass_Name) values(6 ,1, 'Lux', 1,1,1,DATE(NOW()),106,"Et");
+insert into ticket(seat_number,train_ID,vagon_type, leg_serial_number, RouteID, Vagon_num,Date,PassID,Pass_Name) values(11 ,1, 'Lux', 1,1,1,DATE(NOW()),106,"LilAdilet");
+insert into ticket(seat_number,train_ID,vagon_type, leg_serial_number, RouteID, Vagon_num,Date,PassID,Pass_Name) values(1 ,1, 'Lux', 1,1,2,DATE(NOW()),106,"BigAdilet");
+insert into ticket(seat_number,train_ID,vagon_type, leg_serial_number, RouteID, Vagon_num,Date,PassID,Pass_Name) values(7 ,1, 'Lux', 2,2,1,DATE(NOW()),107, "LilBai");
 insert into ticket(seat_number,train_ID,vagon_type, leg_serial_number, RouteID, Vagon_num,Date,PassID,Pass_Name) values(2 ,1, 'Lux', 2,2,1,DATE(NOW()),107, "BigBai");
 insert into ticket(seat_number,train_ID,vagon_type, leg_serial_number, RouteID, Vagon_num,Date,PassID,Pass_Name) values(3 ,1, 'Lux', 2,2,1,DATE(NOW()),107, "MiddleBai");
