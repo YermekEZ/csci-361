@@ -17,8 +17,7 @@
 </script>
 
 
-<button type="button" id="formButton">Toggle Form!</button>
-
+<button type="button" id="formButton">Search</button>
 <form id="form1" >
   <b>Date</b> <input type="text"  id = "date">
   <br><br>
@@ -26,10 +25,10 @@
   <br><br>
   <b>Arrival</b><input type="text" name="arrival" id = "arrival">
   <br><br>
-
-
-  <button type="button" id="submit">Submit</button>
+  <button type="button" id="submit">Find Tickets</button>
+  <button type="button" id="submit2">Find Routes</button>
 </form>
+
 
 <input id = "number" type="text" placeholder="only numbers. E.g:123" name="numberField" onkeypress="return isNumberKey(event)" />
 
@@ -62,6 +61,26 @@
         </tr>
         </thead>
         <tbody id ="content">
+        </tbody>
+
+      </table>
+      <table id="leg"
+             class="table table-bordered
+                         table-condensed table-striped">
+        <thead class = "nohead">
+        <tr>
+          <th>#</th>
+          <th>Date</th>
+          <th>Train Number</th>
+          <th>Serial Number</th>
+          <th>Route Number</th>
+          <th>Time</th>
+          <th>Departure</th>
+          <th>Arrival</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody id ="content2">
         </tbody>
 
       </table>

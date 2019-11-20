@@ -6,13 +6,12 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8143706e-d78c-4e7d-9d1d-9a9b07050b0e" name="Default" comment="change of regservlet v2">
-      <change afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/DeleteHelper.java" afterDir="false" />
+    <list default="true" id="8143706e-d78c-4e7d-9d1d-9a9b07050b0e" name="Default" comment="change of regservlet v3">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/DbServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/DbServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/PassengerSearchServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/PassengerSearchServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/InsertHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/InsertHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/Reserve.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/Reserve.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/SelectHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/SelectHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/Ticket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/Ticket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/ServletAutofill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/ServletAutofill.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/UpdateHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/hw/UpdateHelper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/agentickets.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/agentickets.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/js/toggle.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/toggle.js" afterDir="false" />
@@ -53,9 +52,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="HTML File" />
         <option value="CSS File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -82,7 +81,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
     <property name="database.console.LAST_STATE" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Documents/SE/Train" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -358,6 +357,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="change of regservlet" />
     <MESSAGE value="change of regservlet v2" />
-    <option name="LAST_COMMIT_MESSAGE" value="change of regservlet v2" />
+    <MESSAGE value="change of regservlet v3" />
+    <option name="LAST_COMMIT_MESSAGE" value="change of regservlet v3" />
   </component>
 </project>

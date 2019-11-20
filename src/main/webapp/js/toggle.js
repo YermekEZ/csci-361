@@ -166,7 +166,7 @@ function sendTicket(seat, route, date, leg, vagon, row){
 function historyRequest(){
 	console.log("In historyRequest");
 	$.ajax  ({
-		url : 'Reserve',
+		url : 'ServletAutofill',
 		data:{
 			User: document.cookie.slice(document.cookie.indexOf("=")+1,document.cookie.indexOf(","))
 		},
@@ -176,7 +176,6 @@ function historyRequest(){
 			showHistory(res);
 		}
 	});
-	
 }
 
 
@@ -390,6 +389,7 @@ $("#showHistory").click(function(){
       console.log($('#date').val());
       window.setTimeout(prepareData,1000);
     });
+
 
 
 

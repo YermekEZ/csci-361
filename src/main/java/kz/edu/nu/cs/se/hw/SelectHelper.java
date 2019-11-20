@@ -65,7 +65,7 @@ public class SelectHelper {
         return stm;
     }
     protected static PreparedStatement BoughtTickets(Connection con, String date, String departure, String arrival, int vagon) throws SQLException {
-        String query = "select T.Seat_Number" +
+        String query = "select distinct T.Seat_Number" +
                 " from Ticket T, Leg_of_route R, Station L1, Station L2 " +
                 "where DATE(R.Date_dep) = ? and L1.Location = ? and L2.Location = ? and T.Vagon_num = ? " +
                 "and L1.StationId=R.Station_dep and L2.StationID = R.Station_arr and R.RouteID=T.RouteID and R.Serial_number_in_route = T.Leg_Serial_number";
@@ -87,5 +87,12 @@ public class SelectHelper {
         stm.setString(3, arrival);
         return stm;
     }
+    //    protected String SearchPassTicket(String Username) {
+//        String query ="select Ticket.Seat_Number, Route.Departure, Route.Arrival, Route.Time, Ticket.TrainID from Ticket, Route where";
+//            query +=" Ticket.Passenger = (select UserID from User where";
+//            query += " Username =" + '"'+Username+'"'+")";
+//            query += " and Route.RouteID = Ticket.RouteID";
+//        return query;
+//    }
 
 }

@@ -72,6 +72,32 @@ public class ServletAutofill extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Gson gson = new Gson();
+        String json;
+        List<History> list = new ArrayList<History>();
+        response.setContentType("application/json;charset=UTF-8");
+        try {
+            Connection con = DatabaseConnection.initializeDatabase();
+            ResultSet r;
+            String username;
+            username = request.getParameter("User");
+            System.out.println(username);
+            PreparedStatement mySt = SelectHelper.SearchHistory(con, username);
+            System.out.println(mySt.toString());
+            r = mySt.executeQuery();
+            while (r.next()) {
+                History x = new History(r.getString(1), r.getString(2), r.getString(3), r.getString(4), r.getString(5),r.getString(6),r.getString(7));
+                list.add(x);
+            }
+            json = gson.toJson(list);
+            System.out.println(json);
+            System.out.println("Success");
+            response.getWriter().write(json);
+            mySt.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 }

@@ -34,30 +34,42 @@ public class Reserve extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Gson gson = new Gson();
 		String json;
-		List<History> list = new ArrayList<History>();
-
+		List<Leg> legs = new ArrayList<>();
 
 		response.setContentType("application/json;charset=UTF-8");
 		try {
 			Connection con = DatabaseConnection.initializeDatabase();
 			ResultSet r;
-			String username;
-			username = request.getParameter("User");
-			System.out.println(username);
-			PreparedStatement mySt = SelectHelper.SearchHistory(con, username);
+			String date, departure, arrival;
+			date = request.getParameter("Date");
+			departure = request.getParameter("Departure");
+			arrival = request.getParameter("Arrival");
+			System.out.println(date);
+			System.out.println(departure);
+			System.out.println(arrival);
+
+			PreparedStatement mySt = SelectHelper.SearchLeg(con, date, departure, arrival);
 			System.out.println(mySt.toString());
 			r = mySt.executeQuery();
+			String dat, time, dep, arr; int train, serial, route;
 			while (r.next()) {
-				History x = new History(r.getString(1), r.getString(2), r.getString(3), r.getString(4), r.getString(5),r.getString(6),r.getString(7));
-				list.add(x);
+				dat = r.getString(1);
+				train = r.getInt(2);
+				serial = r.getInt(3);
+				route = r.getInt(4);
+				time = r.getString(5);
+				dep = r.getString(6);
+				arr= r.getString(7);
+				Leg x = new Leg(dat, train, serial,route,time, dep, arr);
+				legs.add(x);
 			}
-			json = gson.toJson(list);
+			System.out.println(legs);
+			json = gson.toJson(legs);
 			System.out.println(json);
 			System.out.println("Success");
 			response.getWriter().write(json);
-			mySt.close();
 			con.close();
-		} catch (Exception e) {
+		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}
@@ -69,8 +81,8 @@ public class Reserve extends HttpServlet {
 		Gson gson = new Gson();
 		String json;
 		response.setContentType("application/json;charset=UTF-8");
-//        try {
-//            Connection con = DatabaseConnection.initializeDatabase();
+     try {
+     Connection con = DatabaseConnection.initializeDatabase();
 //            int r, train, vagon;
 //            String query;
 //            String seat, route, fname, lname, email, date, departure, arrival, pass_name;
@@ -94,12 +106,10 @@ public class Reserve extends HttpServlet {
 //            System.out.println("Success");
 //            response.getWriter().write(json);
 //            con.close();
-//
-//        } catch (Exception e) {
-//
-//            e.printStackTrace();
-//
-//        }
+
+   } catch (Exception e) {
+         e.printStackTrace();
+      }
 
 	}
 
