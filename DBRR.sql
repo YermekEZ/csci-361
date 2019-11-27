@@ -146,6 +146,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Work_E` (
   `End_time` TIME NULL,
   `Hours` INT NULL DEFAULT(timediff(`End_time`,`Start_time`)),
   `EmployeeID` INT NOT NULL,
+  `Salary` INT NULL,
   PRIMARY KEY (`EmployeeID`),
   CONSTRAINT `fk_Work_E__EmployeeID_1`
     FOREIGN KEY (`EmployeeID`)
@@ -224,7 +225,6 @@ DROP TABLE IF EXISTS `mydb`.`Ticket` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`Ticket` (
   `Seat_Number` INT NOT NULL,
- -- `Status` TINYINT(1) NULL DEFAULT 0,
   `Date` DATE NOT NULL,
   `Train_ID` INT NOT NULL,
   `Vagon_type` VARCHAR(45) NOT NULL,
@@ -278,11 +278,13 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Vagon` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `mydb`.APP_LOGS(
+
+DROP TABLE IF EXISTS APP_LOGS;
+create table IF NOT EXISTS APP_LOGS(
     LOG_ID varchar(100) primary key,
     ENTRY_DATE timestamp,
     LOGGER varchar(100),
-    LOG_LEVEL varchar(100),
+    LOG_LEVEL varchar(100),    
     MESSAGE TEXT,
     EXCEPTION TEXT
 );
