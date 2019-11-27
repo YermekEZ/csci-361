@@ -107,3 +107,4 @@ insert into ticket(seat_number,train_ID,vagon_type, leg_serial_number, RouteID, 
 insert into ticket(seat_number,train_ID,vagon_type, leg_serial_number, RouteID, Vagon_num,Date,PassID,Pass_Name) values(7 ,1, 'Lux', 2,2,1,DATE(NOW()),107, "LilBai");
 insert into ticket(seat_number,train_ID,vagon_type, leg_serial_number, RouteID, Vagon_num,Date,PassID,Pass_Name) values(2 ,1, 'Lux', 2,2,1,DATE(NOW()),107, "BigBai");
 insert into ticket(seat_number,train_ID,vagon_type, leg_serial_number, RouteID, Vagon_num,Date,PassID,Pass_Name) values(3 ,1, 'Lux', 2,2,1,DATE(NOW()),107, "MiddleBai");
+insert into ticket(seat_number,train_ID,vagon_type, leg_serial_number, RouteID, Vagon_num,Date,PassID,Pass_Name) values(3 ,1, 'Lux', 2,2,1,DATE_ADD(DATE(NOW()), INTERVAL 1 DAY),107, "MiddleBai");
